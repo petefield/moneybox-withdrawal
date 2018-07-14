@@ -70,7 +70,7 @@ namespace Moneybox.Tests
         {
            
             var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 1000, User = new User { Email = "fromUser@test.test" } };
-            var toAccount = new Account { Id = Guid.NewGuid(), Balance = 0, User = new User { Email = "fromUser@test.test" } };
+            var toAccount = new Account { Id = Guid.NewGuid(), Balance = 0, User = new User { Email = "toUser@test.test" } };
 
         mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);
