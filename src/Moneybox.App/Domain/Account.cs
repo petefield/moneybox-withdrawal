@@ -53,6 +53,16 @@ namespace Moneybox.App
 
         public void TransferFrom(Account from, decimal amount)
         {
+            if (from == null)
+            {
+                throw new ArgumentNullException("from");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount", "Amount to transfer must be greater than 0");
+            }
+
             var paidIn = this.PaidIn + amount;
 
             if (paidIn > Account.PayInLimit)
