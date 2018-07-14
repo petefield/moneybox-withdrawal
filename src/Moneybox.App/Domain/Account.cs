@@ -19,6 +19,11 @@ namespace Moneybox.App
 
         public decimal PaidIn { get; set; }
 
+        public void Withdraw(decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TransferFrom(Account from, decimal amount)
         {
 
