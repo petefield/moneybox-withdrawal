@@ -42,37 +42,22 @@ namespace Moneybox.App
 
         public void TransferFrom(Account from, decimal amount)
         {
-
-            var fromBalance = from.Balance - amount;
-            if (fromBalance < 0m)
-            {
-                throw new InvalidOperationException("Insufficient funds to make transfer");
-            }
-
-            if (fromBalance < 500m)
-            {
-                from.OnFundsLow?.Invoke(from);
-              //  this.notificationService.NotifyFundsLow(from.User.Email);
-            }
-
             var paidIn = this.PaidIn + amount;
+
             if (paidIn > Account.PayInLimit)
             {
                 throw new InvalidOperationException("Account pay in limit reached");
             }
 
-            if (Account.PayInLimit - paidIn < 500m)
-            {
-                this.OnApproachingPayInLimit?.Invoke(this);
-             //   this.notificationService.NotifyApproachingPayInLimit(to.User.Email);
-            }
-
-            from.Balance = from.Balance - amount;
-            from.Withdrawn = from.Withdrawn - amount;
+            from.Withdraw(amount);
 
             this.Balance = this.Balance + amount;
             this.PaidIn = this.PaidIn + amount;
 
+            if (Account.PayInLimit - paidIn < 500m)
+            {
+                this.OnApproachingPayInLimit?.Invoke(this);
+            }
         }
     }
 }
