@@ -24,3 +24,11 @@ As part of this process however, you should look to refactor some of the code in
 Once you have completed your work, send us a link to your public repository.
 
 Good luck!
+
+## Comments from PF
+
+* Refactored the transferMoney and withdrawMoney features to use new methods (TransferFrom and Withdraw) on the Account Domain model.
+* Made balance a readonly property. Should only be able to adjust the balance of an account by paying money in or taking money out (?)
+* Could make balance a computed property PaidIn + Withdrawn.  
+* Should also make PaidIn and Withdrawn readonly properties.
+* Haven't done the above three changes as would mean I have to introduce a constructor to set the values of the accounts being used for testing and I ran out of time.
