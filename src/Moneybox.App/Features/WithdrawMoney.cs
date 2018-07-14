@@ -21,7 +21,7 @@ namespace Moneybox.App.Features
 
             from.OnFundsLow += account => this.notificationService.NotifyFundsLow(account.User.Email);
 
-            from.Withdraw(500);
+            from.Withdraw(amount);
 
             this.accountRepository.Update(from);
 

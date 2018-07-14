@@ -21,7 +21,23 @@ namespace Moneybox.App
 
         public void Withdraw(decimal amount)
         {
-            throw new NotImplementedException();
+            if (amount < 0) {
+                throw new ArgumentOutOfRangeException("amount", "Amount to withdraw must be greater than 0");
+            }
+
+            if (amount > this.Balance)
+            {
+                throw new InvalidOperationException( "Insufficient funds to make transfer");
+            }
+
+            this.Balance -= amount;
+            this.Withdrawn -= amount;
+
+            if (this.Balance < 500)
+            {
+                this.OnFundsLow?.Invoke(this);
+            }
+
         }
 
         public void TransferFrom(Account from, decimal amount)

@@ -101,7 +101,7 @@ namespace Moneybox.Tests
 
             withdraw.Execute(fromAccount.Id, 600);
 
-            Assert.Equal( 600, fromAccount.Withdrawn);
+            Assert.Equal( -600, fromAccount.Withdrawn);
         }
 
 
