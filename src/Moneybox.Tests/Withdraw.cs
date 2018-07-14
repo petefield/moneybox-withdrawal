@@ -25,7 +25,7 @@ namespace Moneybox.Tests
         public void Throws_If_FromAccount_Insufficient_Funds()
         {
 
-            var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 0 };
+            var fromAccount = new Account { Id = Guid.NewGuid() };
             
             mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);
@@ -44,7 +44,7 @@ namespace Moneybox.Tests
         public void Notifies_User_If_FromAccount_Funds_Low()
         {
            
-            var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 1000, User = new User { Email = "fromUser@test.test" } };
+            var fromAccount = new Account(paidIn: 1000, withdrawn: 0) { Id = Guid.NewGuid(), User = new User { Email = "fromUser@test.test" } };
 
         mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);
@@ -60,7 +60,7 @@ namespace Moneybox.Tests
         [Fact]
         public void Calls_Repo_Update_Once()
         {
-            var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 1000, User = new User { Email = "fromUser@test.test" } };
+            var fromAccount = new Account(paidIn: 1000, withdrawn: 0) { Id = Guid.NewGuid(),  User = new User { Email = "fromUser@test.test" } };
           
             mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);
@@ -77,7 +77,7 @@ namespace Moneybox.Tests
         [Fact]
         public void Deducts_FromAccount_Balance()
         {
-            var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 1000, User = new User { Email = "fromUser@test.test" } };
+            var fromAccount = new Account(paidIn: 1000, withdrawn: 0) { Id = Guid.NewGuid(),  User = new User { Email = "fromUser@test.test" } };
 
             mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);
@@ -92,7 +92,7 @@ namespace Moneybox.Tests
         [Fact]
         public void Deacreases_FromAccount_Withdrawn()
         {
-            var fromAccount = new Account { Id = Guid.NewGuid(), Balance = 1000, User = new User { Email = "fromUser@test.test" } };
+            var fromAccount = new Account(paidIn: 1000, withdrawn: 0) { Id = Guid.NewGuid(),  User = new User { Email = "fromUser@test.test" } };
 
             mockAccountsRepo.Setup(x => x.GetAccountById(fromAccount.Id))
                 .Returns(fromAccount);

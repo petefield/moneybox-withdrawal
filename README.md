@@ -31,4 +31,5 @@ Good luck!
 * Made balance a readonly property. Should only be able to adjust the balance of an account by paying money in or taking money out (?)
 * Could make balance a computed property PaidIn + Withdrawn.  
 * Should also make PaidIn and Withdrawn readonly properties.
-* Haven't done the above three changes as would mean I have to introduce a constructor to set the values of the accounts being used for testing and I ran out of time.
+* ~~Haven't done the above three changes as would mean I have to introduce a constructor to set the values of the accounts being used for testing and I ran out of time.~~
+* The above was bugging me so I went back and did it anyway. PaidIn and Withdrawn are now readonly prperties and balance is now a computed property

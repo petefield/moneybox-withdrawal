@@ -7,17 +7,29 @@ namespace Moneybox.App
         public event Action<Account> OnFundsLow;
         public event Action<Account> OnApproachingPayInLimit;
 
+        public Account()
+        {
+
+        }
+
+        public Account(decimal paidIn, decimal withdrawn)
+        {
+            this.PaidIn = paidIn;
+            this.Withdrawn = withdrawn;
+        }
+
+
         public const decimal PayInLimit = 4000m;
 
         public Guid Id { get; set; }
 
         public User User { get; set; }
 
-        public decimal Balance { get; set; }
+        public decimal Balance => this.PaidIn + this.Withdrawn;
+            
+        public decimal Withdrawn { get; private set; }
 
-        public decimal Withdrawn { get; set; }
-
-        public decimal PaidIn { get; set; }
+        public decimal PaidIn { get; private set; }
 
         public void Withdraw(decimal amount)
         {
@@ -30,7 +42,6 @@ namespace Moneybox.App
                 throw new InvalidOperationException( "Insufficient funds to make transfer");
             }
 
-            this.Balance -= amount;
             this.Withdrawn -= amount;
 
             if (this.Balance < 500)
@@ -51,7 +62,6 @@ namespace Moneybox.App
 
             from.Withdraw(amount);
 
-            this.Balance = this.Balance + amount;
             this.PaidIn = this.PaidIn + amount;
 
             if (Account.PayInLimit - paidIn < 500m)
